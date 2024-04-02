@@ -4,13 +4,15 @@ import inquirer from "inquirer";
 //function
 //operations
 let todos = [];
+
+let exit = (true)
 async function createTodo(todos) {
     do {
         let ans = await inquirer.prompt({
             type: "list",
             message: "Select An Operation",
             name: "select",
-            choices: ["add", "Update", "View", "Delete"],
+            choices: ["add", "Update", "View", "Delete","exit"],
         });
         if (ans.select == "add") {
             let addTodo = await inquirer.prompt({
@@ -43,7 +45,7 @@ async function createTodo(todos) {
         if (ans.select == "Delete") {
             let deleteTodo = await inquirer.prompt({
                 type: "list",
-                message: "Select An Item For Update",
+                message: "Select An Item For delete",
                 name: "todo",
                 choices: todos.map(item => item)
             });
@@ -51,6 +53,9 @@ async function createTodo(todos) {
             todos = [...newTodos];
             console.log(todos);
         }
-    } while (true);
+        if (ans.select == "exit") {
+            exit = (false);
+        }
+    } while (exit);
 }
 createTodo(todos);
