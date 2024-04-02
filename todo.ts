@@ -9,12 +9,14 @@ import chalk from "chalk";
 
 let todos : string []=[];
 
+let exit = (true)
+
 async function createTodo (todos:string[]){
   do{ let ans = await inquirer.prompt({
     type:"list",
     message:"Select An Operation",
     name:"select",
-    choices:["add","Update","View","Delete"],
+    choices:["add","Update","View","Delete","exit"],
 })
 if(ans.select == "add") {
 let addTodo = await inquirer.prompt({
@@ -48,16 +50,21 @@ if(ans.select == "View") {
 if(ans.select == "Delete") {
     let deleteTodo = await inquirer.prompt({
         type:"list",
-        message:"Select An Item For Update",
+        message:"Select An Item For delete",
         name:"todo",
         choices:todos.map(item => item)
     })
     let newTodos = todos.filter (val => val !== deleteTodo.todo)
     todos = [...newTodos]
     console.log(todos)
-} }
- while(true)
-    
 }
+    if(ans.select == "exit"){
+        exit = (false)
+    }
+}
+ while(exit)
+    }
+
+
 
 createTodo(todos)
